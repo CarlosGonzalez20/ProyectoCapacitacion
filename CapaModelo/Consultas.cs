@@ -69,5 +69,38 @@ namespace CapaControlador
 
             return dt;
         }
+        public bool InsertarEmpleado(int codigoEmpleado, string nombreCompleto, string puesto, string departamento, int estado)
+        {
+            OdbcConnection connection = null;
+            try
+            {
+                connection = con.conexion(); // Obtener la conexión
+                using (OdbcCommand command = new OdbcCommand("INSERT INTO empleados (codigo_empleado, nombre_completo, puesto, departamento, estado) VALUES (?, ?, ?, ?, ?)", connection))
+                {
+                    // Agregar parámetros a la consulta
+                    command.Parameters.Add("@codigo_empleado", OdbcType.Int).Value = codigoEmpleado;
+                    command.Parameters.Add("@nombre_completo", OdbcType.VarChar).Value = nombreCompleto;
+                    command.Parameters.Add("@puesto", OdbcType.VarChar).Value = puesto;
+                    command.Parameters.Add("@departamento", OdbcType.VarChar).Value = departamento;
+                    command.Parameters.Add("@estado", OdbcType.Int).Value = estado;
+
+                    int rowsAffected = command.ExecuteNonQuery();
+                    return rowsAffected > 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                // Manejo de errores
+                Console.WriteLine("Error al insertar empleado: " + ex.Message);
+                return false;
+            }
+            finally
+            {
+                if (connection != null)
+                {
+                    con.desconexion(connection); // Asegúrate de cerrar la conexión
+                }
+            }
+        }
     }
 }

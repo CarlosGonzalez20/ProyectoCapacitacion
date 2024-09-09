@@ -157,6 +157,7 @@ namespace CapaVista
             this.insertarEmp.TabIndex = 13;
             this.insertarEmp.Text = "Insertar";
             this.insertarEmp.UseVisualStyleBackColor = true;
+            this.insertarEmp.Click += new System.EventHandler(this.insertarEmp_Click);
             // 
             // editarEmp
             // 

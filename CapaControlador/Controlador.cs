@@ -9,6 +9,14 @@ using System.Data.Odbc;
 
 namespace CapaControlador
 {
+    public class Empleado
+    {
+        public int CodigoEmpleado { get; set; }
+        public string NombreCompleto { get; set; }
+        public string Puesto { get; set; }
+        public string Departamento { get; set; }
+        public int Estado { get; set; }
+    }
     public class Controlador
     {
         Consultas sn = new Consultas();
@@ -42,7 +50,9 @@ namespace CapaControlador
 
             return dt1;
         }
-
-
+        public bool InsertarEmpleado(Empleado empleado)
+        {
+            return sn.InsertarEmpleado(empleado.CodigoEmpleado, empleado.NombreCompleto, empleado.Puesto, empleado.Departamento, empleado.Estado);
+        }
     }
 }
